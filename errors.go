@@ -18,11 +18,11 @@ type ErrorType struct {
 	code           int
 	internalReason string
 	hTTPStatus     int
-	details        map[string]string
+	details        map[string]any
 }
 
-func (e *ErrorType) Error() string {
-	return fmt.Sprintf("Error: [%d] %s : %s. details: %#v", e.GetCode(), e.GetMessage(), e.GetInternalReason(), e.getDetails())
+func (e ErrorType) Error() string {
+	return fmt.Sprintf("Error: [%d] %s : %s. details: %v", e.GetCode(), e.GetMessage(), e.GetInternalReason(), e.GetDetails())
 }
 
 func NewError(
@@ -30,36 +30,36 @@ func NewError(
 	code int,
 	internalReason string,
 	HTTPStatus int,
-	Details map[string]string,
-) ErrorType {
+	details map[string]any,
+) Error {
 	return ErrorType{
 		message,
 		code,
 		internalReason,
 		HTTPStatus,
-		Details,
+		details,
 	}
 }
 
-func (e *ErrorType) GetMessage() string {
+func (e ErrorType) GetMessage() string {
 	return e.message
 }
 
-func (e *ErrorType) GetCode() int {
+func (e ErrorType) GetCode() int {
 	return e.code
 }
 
-func (e *ErrorType) GetInternalReason() string {
+func (e ErrorType) GetInternalReason() string {
 	return e.internalReason
 }
 
-func (e *ErrorType) GetHTTPStatus() int {
+func (e ErrorType) GetHTTPStatus() int {
 	return e.hTTPStatus
 }
 
-func (e *ErrorType) getDetails() map[string]string {
+func (e ErrorType) GetDetails() map[string]any {
 	if e.details == nil {
-		return make(map[string]string)
+		return make(map[string]any)
 	}
 	return e.details
 }
