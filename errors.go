@@ -67,7 +67,7 @@ func (e *ErrorType) getDetails() map[string]string {
 var UndefinedError = NewError(
 	"undefined error occurred",
 	0,
-	"undefined error ocucred",
+	"undefined error occured",
 	500,
 	nil,
 )
